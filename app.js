@@ -7,6 +7,44 @@ var express = require('express')
   , routes = require('./routes')
 
 var app = module.exports = express.createServer();
+var io = require('socket.io').listen(app);
+
+var clients=[];
+var file={};
+
+io.of('/clients')
+.on('connection', function(socket) {
+	socket.on('login', function(name) {
+		clients.push({
+			'name': name
+		});
+		socket.emit('setFile', file.parse());
+	});
+	socket.on('newLine', function(lineId) {
+		var fileResponse = file.newLine(lineId);
+		if(fileResponse.success) {
+			socket.emit('newLineSuccess');
+		} else {
+			socket.emit('newLineFailed');
+		}
+	});
+	socket.on('useLine', function(lineId) {
+		
+	});
+	socket.on('editLine', function(lineId) {
+		
+	});
+	socket.on('removeLine', function(lineId) {
+		
+	});
+	socket.on('getFile', function(lineId) {
+		
+	});
+	
+	
+	socket.on('');
+});
+
 
 // Configuration
 
