@@ -1,5 +1,6 @@
 var file = function () {
 	var file_lines = [];
+	var first_line = null;
 
 	function randomString() {
 		var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
@@ -9,13 +10,16 @@ var file = function () {
 			var rnum = Math.floor(Math.random() * chars.length);
 			randomstring += chars.substring(rnum,rnum+1);
 		}
+		return randomstring;
 	}
 
 	return {
 		parseDoc: function(){
 			var source = "";
-			for(var i=0;i<file_source.length;i++){
-				source += file_lines[i].code;
+			var current_line = first_line;
+			while(file_lines[current_line].next_line){
+				source += file_lines[current_line].code;
+				current_line = file_lines[current_line].next_line;
 			}
 			return source;
 		},
