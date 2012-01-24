@@ -33,6 +33,7 @@ var file = function () {
 			};
 			//actualizo los punteros de la linea vieja
 			file_lines[lineId].next_line = new_id;
+			file_lines[file_lines[lineId].next_line].previous_line = new_id;
 			return new_id;
 		}
 	};
